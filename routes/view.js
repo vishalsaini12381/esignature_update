@@ -27,8 +27,8 @@ router.get('/admin/branch-list', function(req, res, next) {
   });
 
 router.get('/admin/branch-detail', function(req, res, next) {
-  var staffList=[]
-  var documentList=[]
+  var staffList=[];
+  var documentList=[];
   var mainData={};
   var hex = /[0-9A-Fa-f]{6}/g;
   checkId = (hex.test(req.query.id))? "success" : "fail";
