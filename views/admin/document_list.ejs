@@ -1,0 +1,82 @@
+<% include layout/header %>
+<div class="content-wrapper">
+    <div class="content-header sty-one">
+        <h1>Document List</h1>
+        <ol class="breadcrumb">
+            <li><a href="dashboard">Home</a></li>
+            <li><i class="fa fa-angle-right"></i>Document List</li>
+        </ol>
+    </div>
+
+    <div class="content">
+
+        <div class="row">
+            <div class="col-xl-12">
+                <div class="info-box">
+
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table id="example1" class="table table-bordered table-striped table-button">
+                                <thead>
+                                    <tr>
+                                        <th>Sr. No.</th>
+                                        <th>Document Name</th>
+                                        <th>Plate Number</th>
+                                        <th>Message</th>
+                                        <th>createdAt</th>
+                                        <!-- <th>Status</th> -->
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="tbodyData">
+                                    <% sr=1; data.response.forEach(function(res){
+                                        dataId=res['_id'] %>
+                                        <tr>
+                                                <td><%= sr %></td>
+                                                <td><%= res['document_name'] %></td>
+                                                <td><%= res['plate_number'] %></td>
+                                                <td><%= res['message'] %></td>
+                                                <td><%= res['createdAt'] %> </td>
+                                                <!-- <td>
+                                                    <div class="mytoggle">
+                                                        <label class="switch">
+                                                            <% if(res['status']==1){ %>
+                                                               <input type="checkbox"  onchange="changeStatus(this,'<%=dataId%>','0')" checked="" >
+                                                            <% }else{ %>
+                                                               <input type="checkbox" onchange="changeStatus(this,'<%=dataId%>','1')" >
+                                                            <% } %>
+                                                                <span class="slider round"></span>
+                                                        </label>
+                                                    </div>
+                                                </td> -->
+                                                <td><a href="document-detail?id=<%=dataId%>">View </a></td>
+                                            </tr>
+                                        <% sr++ } )%>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+ <% include layout/footer %>
+
+ <script>
+     console.log('<%=code%>')
+ function changeStatus(obj,id,status){
+        if(id){
+            axios.post('/api/branchStatusChange',{status:status,branchId:id})
+                .then((response)=>{
+                    var result=response.data.data;
+                    if(response.data.code==100){
+                       location.reload();
+                    }},(e)=>{
+                        
+                    });
+        }
+    }
+ </script>

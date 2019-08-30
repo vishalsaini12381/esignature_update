@@ -1,0 +1,365 @@
+<% include layout/header %>
+
+<div class="content-wrapper">
+    <div class="content-header sty-one">
+        <h1>Branch Detail</h1>
+        <ol class="breadcrumb">
+            <li><a href="dashboard">Home</a></li>
+            <li><i class="fa fa-angle-right"></i>Branch Detail</li>
+        </ol>
+    </div>
+
+    <div class="content">
+        <div class="card">
+            <div class="card-body">
+                <% if(data['response']){  %>
+                <div id="demo">
+                    <div class="step-app">
+                        <ul class="step-steps">
+                            <li class="active"><a href="#step1"><span class="number">1</span>Branch Detail</a></li>
+                            <li class=""><a href="#step2"><span class="number">2</span> Assigned Staff Details</a></li>
+                            <li class=""><a href="#step3"><span class="number">3</span> Branch Signed Record</a></li>
+                        </ul>
+                        <div class="step-content for-border-remove">
+                            <div class="step-tab-panel active" id="step1">
+                                <form>
+                                    <div class="row">
+
+                                        <div class="col-lg-4 col-md-6 m-b-3">
+                                            <div class="widget-info ebox3">
+                                                <div class="card-body">
+                                                    <div class="row">
+                                                        <div class="col-md-12 text-white">
+                                                            <p>No. of People Signed</p>
+                                                            <h2 class="font-weight-bold">50</h2></div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-4 col-md-6 m-b-3">
+                                            <div class="widget-info ebox4">
+                                                <div class="card-body">
+                                                    <div class="row">
+                                                        <div class="col-md-12 text-white">
+                                                            <p>Branch Rating Score</p>
+                                                            <h2 class="font-weight-bold">3.5/5</h2></div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-4 col-md-6 m-b-3">
+                                            <div class="edit-branch">
+                                                <i style="cursor: pointer;" onclick="enableText(this);" class="fa fa-edit"></i>
+                                                <div class="mytoggle">
+                                                    <label class="switch" id="enableStatus">
+                                                        <label class="switch">
+                                                            <% if(data['response']['status']==1){ %>
+                                                               <input type="checkbox"  onchange="changeStatus(this,'<%=data['response']['_id']%>','0')" checked="" >
+                                                            <% }else{ %>
+                                                               <input type="checkbox" onchange="changeStatus(this,'<%=data['response']['_id']%>','1')" >
+                                                            <% } %>
+                                                                <span class="slider round"></span>
+                                                        </label>
+                                                    </label>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                   
+                                    <div class="row m-t-2">
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label for="firstName1">Branch-ID:</label>
+                                                <input class="form-control" id="branchId" readonly style="cursor: no-drop;" type="text" Value="<%=data['response']['_id']%>" Placeholder="E_1">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label for="lastName1">Branch Name:</label>
+                                                <input class="form-control inputText" data-title="Branch Name" onkeypress="return (event.charCode > 64 &&   event.charCode < 91) || (event.charCode > 96 && event.charCode < 123) || (event.charCode == 32)" readonly style="cursor: no-drop;" id="branchName" type="text" Value="<%=data['response']['branchName']%>" Placeholder="Branch Name">
+                                                <div class="errorPrint" style ="font-size:13px;color:red;display:none;" id="branchNameError"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label for="firstName1">Branch Email:</label>
+                                                <input class="form-control " readonly style="cursor: no-drop;" id="branchEmail" type="text" Value="<%=data['response']['branchEmailId']%>" Placeholder="E_sign23@gmail.com">
+                                                <div class="errorPrint" style ="font-size:13px;color:red;display:none;" id="branchEmailError"></div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label for="lastName1">Branch MobileNo:</label>
+                                                <input class="form-control inputText" data-title="Branch MobileNo" onkeypress="return (event.charCode > 47 &&   event.charCode < 58) " readonly style="cursor: no-drop;" id="branchMobile" type="text" Value="<%=data['response']['branchMobile']%>" Placeholder="9179xxxxxxx">
+                                                <div class="errorPrint" style ="font-size:13px;color:red;display:none;" id="branchMobileError"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label for="firstName1">Branch Postal Code:</label>
+                                                <input class="form-control inputText" data-title="Branch Postal Code" onkeypress="return (event.charCode > 47 &&   event.charCode < 58) " maxlength="8" readonly style="cursor: no-drop;" id="branchCode" type="text" Value="<%=data['response']['branchPostalCode']%>" Placeholder="86791">
+                                                <div class="errorPrint" style ="font-size:13px;color:red;display:none;" id="branchCodeError"></div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label for="lastName1">Branch Country:</label>
+                                                <input class="form-control inputText" data-title="Branch Country" onkeypress="return (event.charCode > 64 &&   event.charCode < 91) || (event.charCode > 96 && event.charCode < 123) || (event.charCode == 32)" readonly style="cursor: no-drop;" id="branchCountry" type="text" Value="<%=data['response']['branchCountry']%>" Placeholder="Country Name">
+                                                <div class="errorPrint" style ="font-size:13px;color:red;display:none;" id="branchCountryError"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label for="firstName1">Branch City:</label>
+                                                <input class="form-control inputText" data-title="Branch City" onkeypress="return (event.charCode > 64 &&   event.charCode < 91) || (event.charCode > 96 && event.charCode < 123) || (event.charCode == 32)" readonly style="cursor: no-drop;" id="branchCity" type="text" Value="<%=data['response']['branchCity']%>" Placeholder="City Name">
+                                                <div class="errorPrint" style ="font-size:13px;color:red;display:none;" id="branchCityError"></div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label for="lastName1">Branch Address:</label>
+                                                <input class="form-control inputText" data-title="Branch Address" onkeypress="return (event.charCode > 64 &&   event.charCode < 91) || (event.charCode > 96 && event.charCode < 123) || (event.charCode == 32)" readonly style="cursor: no-drop;" id="branchAddress" type="text" Value="<%=data['response']['branchAddress']%>" Placeholder=" Address">
+                                                <div class="errorPrint" style ="font-size:13px;color:red;display:none;" id="branchAddressError"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                       <div class="col-md-12">
+                                            <button type="button" id="btnSave" style="display: none;" onclick="signin()" data-direction="finish" class="btn btn-primary save-button">Save</button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="step-tab-panel for-border-remove" id="step2">
+                                <div class="row">
+                                    <div class="col-xl-12">
+
+                                        <div class="card-body">
+                                            <div class="table-responsive">
+                                                <table id="example1" class="table table-bordered table-striped table-button">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>Sr. No.</th>
+                                                            <th>Staff-Id</th>
+                                                            <th>Staff Name</th>
+                                                            <th>Mobile No.</th>
+                                                            <th>Email-Id</th>
+                                                            <th>Status</th>
+                                                            <th>Action</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody id="tbodyData">
+                                                            <% sr=1; 
+                                                            responceData=data.staffData[0];
+                                                             responceData.forEach(function(res){
+                                                                dataId=res['_id'] %>
+                                                                <tr>
+                                                                        <td><%= sr %></td>
+                                                                        <td><%= res['_id'] %></td>
+                                                                        <td><%= res['staffName'] %></td>
+                                                                        <td><%= res['staffMobile'] %></td>
+                                                                        <td><%= res['staffEmailId'] %> </td>
+                                                                        <td>
+                                                                            <div class="mytoggle">
+                                                                                <label class="switch">
+                                                                                    <% if(res['status']==1){ %>
+                                                                                       <input type="checkbox"  onchange="changeStatusStaff(this,'<%=dataId%>','0')" checked="" >
+                                                                                    <% }else{ %>
+                                                                                       <input type="checkbox" onchange="changeStatusStaff(this,'<%=dataId%>','1')" >
+                                                                                    <% } %>
+                                                                                        <span class="slider round"></span>
+                                                                                </label>
+                                                                            </div>
+                                                                        </td>
+                                                                        <td><a href="staff-detail?id=<%=dataId%>">View </a></td>
+                                                                    </tr>
+                                                                <% sr++ } )%>
+                                                        </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="step-tab-panel" id="step3">
+                                <div class="row">
+                                    <div class="col-xl-12">
+
+                                        <div class="card-body">
+                                            <div class="table-responsive">
+                                                <table id="example3" class="table table-bordered table-striped table-button">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>Sr.No</th>
+                                                            <th>Doc-Id</th>
+                                                            <th>Document Name</th>
+                                                            <th>Plate No.</th>
+                                                            <th>Status</th>
+                                                            <th>View</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <% sr=1; 
+                                                            responceData=data.documentData[0];
+                                                            responceData.forEach(function(res){
+                                                            dataId=res['_id'] %>
+                                                            <tr>
+                                                                    <td><%= sr %></td>
+                                                                    <td><%= res['_id'] %></td>
+                                                                    <td><%= res['document_name'] %></td>
+                                                                    <td><%= res['plate_number'] %></td>
+                                                                    <td> <p>In-Process</p> </td>
+                                                                    <td><a href="document-detail?id=<%=dataId%>">View </a></td>
+                                                                </tr>
+                                                            <% sr++ } )%>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </div>
+                </div>
+                <% }else{ %>
+                    <p>Something went wrong.</p>
+                <% } %>
+            </div>
+        </div>
+        <!-- Main row -->
+    </div>
+</div>
+<% include layout/footer %>
+<script>
+
+$(document).ready(function () {
+
+  if (<%=code%> === 100) {
+    
+  }else{
+    var alert = "false"
+    var alertTitle = "OOPS"
+    var alertMessage = "<%= message %>"
+    var closeOnClickOutside = false
+    swal(alertTitle, alertMessage, "warning");
+  }
+
+})
+     
+    function signin(){
+        $(".errorPrint").css('display','none');
+        var idValidate=false;
+        $(".inputText").each(function (index, value) {
+            // console.log('div' + index + ':' + $(this).attr('id'));
+            if($(this).val()){
+                $("#"+$(this).attr('id')+'Error').css('display','none');
+            }else{
+                idValidate=true;
+                $("#"+$(this).attr('id')+'Error').empty();
+                $("#"+$(this).attr('id')+'Error').append('*'+$(this).attr('data-title')+' is required field');
+                $("#"+$(this).attr('id')+'Error').css('display','block');
+            }
+        });
+        if(idValidate){
+            return false;
+        }else{
+            var emailPattern = /^\b[A-Z0-9._%-]+@[A-Z0-9.-]+\.[A-Z]{2,4}\b$/i
+           
+            var branchName               = $("#branchName").val();
+            var branchMobile             = $("#branchMobile").val();
+            var branchEmail              = $("#branchEmail").val();
+            var branchCode               = $("#branchCode").val();
+            var branchCity               = $("#branchCity").val();
+            var branchCountry            = $("#branchCountry").val();
+            var branchAddress            = $("#branchAddress").val();
+            var branchId                 = $("#branchId").val();
+          
+        
+            
+            if(!emailPattern.test(branchEmail)){
+                $("#branchEmailError").empty();
+                $("#branchEmailError").append('*not a valid e-mail address');
+                $("#branchEmailError").css('display','block');
+                return false;
+            }
+            axios.post('/api/editBranch',{branchId:branchId,branchName:branchName,branchMobile:branchMobile,branchEmail:branchEmail,branchCode:branchCode,branchCountry:branchCountry,branchCity:branchCity,branchAddress:branchAddress})
+                .then((response)=>{
+                    console.log(response)
+                    if(response.data.code==100){
+                        console.log(response);
+                        // window.location='/admin/dashboard';
+                        swal({
+                            title: "Success!",
+                            text: response.data.message,
+                            icon: "success",
+                            dangerMode: false,
+                            closeOnClickOutside: false,
+                        }).then(function() {
+                            window.location.reload();
+                        });
+                    }else{
+                        // alert(response.data.message);
+                        swal({
+                            title: "OOPS!",
+                            text: response.data.message,
+                            icon: "warning",
+                            dangerMode: true,
+                        })
+                        console.log(response);
+                    }},(e)=>{
+                        // alert(response.data.message);
+                        swal({
+                            title: "OOPS!",
+                            text: "Something went wrong.",
+                            icon: "warning",
+                            dangerMode: true,
+                        })
+                    });
+        }
+
+};
+
+function changeStatus(obj,id,status){
+        if(id){
+            axios.post('/api/branchStatusChange',{status:status,branchId:id})
+                .then((response)=>{
+                    var result=response.data.data;
+                    if(response.data.code==100){
+                       location.reload();
+                    }},(e)=>{
+                        
+                    });
+        }
+    }
+
+    function changeStatusStaff(obj,id,status){
+        if(id){
+            axios.post('/api/staffStatusChange',{status:status,staffId:id})
+                .then((response)=>{
+                    var result=response.data.data;
+                    if(response.data.code==100){
+                       location.reload();
+                    }},(e)=>{
+                        
+                });
+        }
+    }
+    function enableText(obj){
+        $("#btnSave").css('display','block');
+        $(".inputText").attr('readonly',false);
+        $(".inputText").css('cursor','auto');
+    }
+
+    </script>

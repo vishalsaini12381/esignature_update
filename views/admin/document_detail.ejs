@@ -1,0 +1,82 @@
+<% include layout/header %>
+<div class="content-wrapper">
+    <div class="content-header sty-one">
+        <h1>Document Detail</h1>
+        <ol class="breadcrumb">
+            <li><a href="dashboard">Home</a></li>
+            <li><i class="fa fa-angle-right"></i>Document Detail</li>
+        </ol>
+    </div>
+    <div class="content prifilesetting">
+        <div class="card">
+            <div class="card-body">
+            <% if(data['response']){  %>
+              <div class="doc_file">
+                  <div class="row">
+                      <div class="col-lg-6 col-xs-6 b-r"> 
+                        <ul class="mailbox-attachments clearfix">
+                            <li> <span class="mailbox-attachment-icon"><i class="fa fa-file-pdf-o"></i></span>
+                                <div class="mailbox-attachment-info"><span class="mailbox-attachment-size">  <a href="../../<%=data['response']['document']%>" class="btn btn-default btn-xs pull-right" download=""><i class="fa fa-cloud-download"></i></a> </span> </div>
+                            </li>
+                        </ul>
+                      </div>
+                   </div>
+               </div>
+               
+               <div class="doc_detail">
+                   <div class="row">
+                    <div class="col-lg-4 col-xs-6 b-r"> <strong>Document Name</strong> <br>
+                      <p class="text-muted" id="documentName"><%=data['response']['document_name']%> </p>
+                    </div>
+                    <div class="col-lg-4 col-xs-6 b-r"> <strong>Plate Number</strong> <br>
+                      <p class="text-muted" id="plateNo"><%=data['response']['plate_number']%> </p>
+                    </div>
+                    <div class="col-lg-4 col-xs-6 b-r"> <strong>Message</strong> <br>
+                      <p class="text-muted" id="message"><%=data['response']['message']%> </p>
+                    </div>
+                  </div>
+                </div>
+               <div class="participate_detail">
+                    <h3>Participate Detail</h3>
+                   <div class="row" id="staffData" >
+                        <% sr=1; data['response']['participant'].forEach(function(element){
+                            dataId=element['_id'] %>
+                        <div class="col-lg-4 m-b-3">
+                            <div class="card">
+                                <div class="card-body">
+                                    <div class="mail-contnet">
+                                        <h4 class="text-black"><i class="fa fa-user"></i><%=element.participantsName %></h4>
+                                        <p><i class="fa fa-pencil"></i> <%=element.participantsTitle %></p>
+                                        <p><i class="fa fa-pencil"></i> <%=(element.signatureType == '1'?'Signature':(element.signatureType == '2'?'Thumbprint':(element.signatureType == '3'?'Signature & Thumbprint': ''))) %></p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <% }) %>
+                    </div>
+                </div>
+                <% }else{ %>
+                    <p>Something went wrong.</p>
+                <% } %>
+            </div>
+        </div>
+    </div>
+
+</div>
+<% include layout/footer %>
+
+
+<script>
+    $(document).ready(function () {
+        if (<%=code%> === 100) {
+        
+        }else{
+            var alert = "false"
+            var alertTitle = "OOPS"
+            var alertMessage = "<%= message %>"
+            var closeOnClickOutside = false
+            swal(alertTitle, alertMessage, "warning");
+        }
+
+    })
+</script>
